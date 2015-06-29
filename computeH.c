@@ -7,7 +7,7 @@
 #include "mex.h"
 
 
-#define IN 
+#define IN
 #define OUT
 #define MYDEBUG 0
 
@@ -39,9 +39,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 
 
-double ** getMxArray(IN const mxArray *mxArr, 
-                     OUT int *rows, 
-                     OUT int *cols) 
+double ** getMxArray(IN const mxArray *mxArr,
+                     OUT int *rows,
+                     OUT int *cols)
 {
   int i, j, numDim;
   double *arrDataPt, **matrix;
@@ -58,7 +58,7 @@ double ** getMxArray(IN const mxArray *mxArr,
   if(((matrix = (double **) malloc(sizeof(double *)*(*rows))) == NULL) ||
      ((matrix[0] = (double *) malloc(sizeof(double)*(*rows)*(*cols))) == NULL))
     return NULL;
-  
+
   for(i=1; i<(*rows); i++)
     matrix[i] = matrix[0] + i*(*cols);
 
@@ -73,28 +73,28 @@ double ** getMxArray(IN const mxArray *mxArr,
 
 mxArray * putMxArray(double *img, int rows, int cols/*, char *nameImg*/)
 {
-	int i, j;
-	double *ptr;
-	mxArray *mxArr;
+    int i, j;
+    double *ptr;
+    mxArray *mxArr;
 
-	mxArr  = mxCreateDoubleMatrix(rows, cols, mxREAL);
+    mxArr  = mxCreateDoubleMatrix(rows, cols, mxREAL);
 
   ptr = mxGetPr(mxArr);
 
-	for(j=0; j<cols; j++)
-		for(i=0; i<rows; i++)
-			*(ptr ++) = img[i*cols + j];
-	
-  /*mxSetPr(mxArr, data);*/
-	/*mxSetName(mxArr, nameImg);*/
+    for(j=0; j<cols; j++)
+        for(i=0; i<rows; i++)
+            *(ptr ++) = img[i*cols + j];
 
-	return mxArr;
+  /*mxSetPr(mxArr, data);*/
+    /*mxSetName(mxArr, nameImg);*/
+
+    return mxArr;
 }
 
 
 
-double ** createMatrix(IN int rows, 
-                       IN int cols) 
+double ** createMatrix(IN int rows,
+                       IN int cols)
 {
   int i;
   double **matrix;
@@ -102,7 +102,7 @@ double ** createMatrix(IN int rows,
   if(((matrix = (double **) malloc(sizeof(double *)*rows)) == NULL) ||
      ((matrix[0] = (double *) malloc(sizeof(double)*rows*cols)) == NULL))
     return NULL;
-  
+
   for(i=1; i<rows; i++)
     matrix[i] = matrix[0] + i*cols;
 
@@ -113,8 +113,8 @@ double ** createMatrix(IN int rows,
 }
 
 
-int ** createIntMatrix(IN int rows, 
-                       IN int cols) 
+int ** createIntMatrix(IN int rows,
+                       IN int cols)
 {
   int i;
   int **matrix;
@@ -122,7 +122,7 @@ int ** createIntMatrix(IN int rows,
   if(((matrix = (int **) malloc(sizeof(int *)*rows)) == NULL) ||
      ((matrix[0] = (int *) malloc(sizeof(int)*rows*cols)) == NULL))
     return NULL;
-  
+
   for(i=1; i<rows; i++)
     matrix[i] = matrix[0] + i*cols;
 
@@ -148,39 +148,39 @@ void freeIntMatrix(IN  int **matrix)
 
 void IO_MLabCreateFile(char *fileName)
 {
-	MATFile *fp;
+    MATFile *fp;
 
-	fp = matOpen(fileName, "w");
+    fp = matOpen(fileName, "w");
 
-	matClose(fp);
+    matClose(fp);
 }
 
 
 void IO_MLabWriteDoubleImg(char *fileName, char *nameImg, double *img, int rows, int cols)
 {
-	MATFile *fp;
-	int i, j, dims[2];
-	double *ptr;
-	mxArray *mxArr;
+    MATFile *fp;
+    int i, j, dims[2];
+    double *ptr;
+    mxArray *mxArr;
 
   dims[0] = rows;
   dims[1] = cols;
-	fp = matOpen(fileName, "u");
+    fp = matOpen(fileName, "u");
 
-	mxArr  = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
+    mxArr  = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
 
-	ptr = mxGetPr(mxArr);
-	for(j=0; j<cols; j++)
-		for(i=0; i<rows; i++)
-			*(ptr ++) = img[i*cols + j];
-	
-	/*mxSetName(mxArr, nameImg);
-	matPutArray(fp, mxArr);*/
+    ptr = mxGetPr(mxArr);
+    for(j=0; j<cols; j++)
+        for(i=0; i<rows; i++)
+            *(ptr ++) = img[i*cols + j];
+
+    /*mxSetName(mxArr, nameImg);
+    matPutArray(fp, mxArr);*/
   matPutVariable(fp, nameImg, mxArr);
 
-	matClose(fp);
+    matClose(fp);
 
-	mxDestroyArray(mxArr);
+    mxDestroyArray(mxArr);
 }
 
 
@@ -202,7 +202,7 @@ void kron(IN int rowsA,
     return;
   }
 
-  for(i=0; i<rowsA; i++)  
+  for(i=0; i<rowsA; i++)
     for(k=0; k<rowsB; k++)
       for(j=0; j<colsA; j++)
         for(l=0; l<colsB; l++)
@@ -213,15 +213,15 @@ void kron(IN int rowsA,
 
 
 double conjgradient(IN  int n,
-                    IN  double **A, 
-                    IN  double **b, 
+                    IN  double **A,
+                    IN  double **b,
                     IN  int i_max,      /* max # iterations */
                     IN  double epsilon, /* error tolerance */
                     IN OUT double **x)
 {
-  //my conjugate gradient solver for .5*x'*A*x -b'*x, based on the
-  // tutorial by Jonathan Shewchuk 
-  //FILE * fd;
+  /* my conjugate gradient solver for .5*x'*A*x -b'*x, based on the
+     tutorial by Jonathan Shewchuk */
+  /* FILE * fd; */
   int i=0, numrecompute, row, col;
   double Ax, delta_old, delta_new, delta_0, **r, **d, **q, alpha, alpha_denom, beta;
 
@@ -229,8 +229,8 @@ double conjgradient(IN  int n,
   d = createMatrix(1, n);
   q = createMatrix(1, n);
 
-  /* r = b - A*x */
-  /* delta_new = r'*r */
+  /* r = b - A*x        */
+  /* delta_new = r'*r   */
   delta_new = 0;
   for (row=0; row<n; row++)
   {
@@ -246,15 +246,14 @@ double conjgradient(IN  int n,
   delta_0 = delta_new;
 
   numrecompute = (int) sqrt((double) n);
-  //  printf("numrecompute = %d\n",numrecompute);
+  /*  printf("numrecompute = %d\n",numrecompute);   */
 
-
-  //fd = fopen("err.txt", "w");
+  /*  fd = fopen("err.txt", "w");                   */
   while ((i < i_max) && (delta_new > epsilon*epsilon*delta_0))
   {
-    //printf("Step %d, delta_new = %f      \r",i,delta_new);
-    //fprintf(fd, "%d %f\n", i, (float)delta_new);
-  
+    /* printf("Step %d, delta_new = %f      \r",i,delta_new); */
+    /* fprintf(fd, "%d %f\n", i, (float)delta_new);           */
+
     /* q = A*d */
     alpha_denom = 0;
     for (row=0; row<n; row++)
@@ -273,7 +272,7 @@ double conjgradient(IN  int n,
       x[0][row] += alpha*d[0][row];
 
     if (i % numrecompute == 0)
-	  {
+      {
       /* r = b - A*x */
       for (row=0; row<n; row++)
       {
@@ -282,8 +281,8 @@ double conjgradient(IN  int n,
           Ax += A[row][col]*x[0][col];
 
         r[0][row] = b[0][row] - Ax;
-      }	  
-	  }
+      }
+      }
     else
     {
       /* r = r-q*alpha; */
@@ -306,7 +305,7 @@ double conjgradient(IN  int n,
 
     i++;
   }
-  //fclose(fd);
+  /* fclose(fd);      */
 
   freeMatrix(r);
   freeMatrix(d);
@@ -318,16 +317,16 @@ double conjgradient(IN  int n,
 
 
 double conjgradient2(IN  int n,
-                     IN  double **A, 
-                     IN  double **b, 
+                     IN  double **A,
+                     IN  double **b,
                      IN  int i_max,      /* max # iterations */
                      IN  double epsilon, /* error tolerance */
                      IN  int k,
                      IN OUT double **x)
 {
-  //my conjugate gradient solver for .5*x'*A*x -b'*x, based on the
-  // tutorial by Jonathan Shewchuk  (or is it +b'*x?)
-  //FILE * fd;
+  /* my conjugate gradient solver for .5*x'*A*x -b'*x, based on the
+     tutorial by Jonathan Shewchuk  (or is it +b'*x?)     */
+  /* FILE * fd; */
   int i=0, numrecompute, row, sparsity_offset, j, ind, col_offset;
   double Ax, delta_old, delta_new, delta_0, **r, **d, **q, alpha, alpha_denom, beta;
 
@@ -343,7 +342,7 @@ double conjgradient2(IN  int n,
   for (row=0; row<n; row++)
   {
     Ax = 0;
-    
+
     col_offset = ((row%sparsity_offset)/3) * 3;
     for (j=0; j<(k+1); j++)
     {
@@ -359,15 +358,15 @@ double conjgradient2(IN  int n,
   delta_0 = delta_new;
 
   numrecompute = (int) sqrt((double) n);
-  //  printf("numrecompute = %d\n",numrecompute);
+  /*  printf("numrecompute = %d\n",numrecompute);   */
 
 
-  //fd = fopen("err.txt", "w");
+  /*  fd = fopen("err.txt", "w");                   */
   while ((i < i_max) && (delta_new > epsilon*epsilon*delta_0))
   {
-    //printf("Step %d, delta_new = %f      \r",i,delta_new);
-    //fprintf(fd, "%d %f\n", i, (float)delta_new);
-  
+    /* printf("Step %d, delta_new = %f      \r",i,delta_new); */
+    /* fprintf(fd, "%d %f\n", i, (float)delta_new);           */
+
     /* q = A*d */
     alpha_denom = 0;
     for (row=0; row<n; row++)
@@ -391,7 +390,7 @@ double conjgradient2(IN  int n,
       x[0][row] += alpha*d[0][row];
 
     if (i % numrecompute == 0)
-	  {
+      {
       /* r = b - A*x */
       for (row=0; row<n; row++)
       {
@@ -405,8 +404,8 @@ double conjgradient2(IN  int n,
         }
 
         r[0][row] = b[0][row] - Ax;
-      }	  
-	  }
+      }
+      }
     else
     {
       /* r = r-q*alpha; */
@@ -429,7 +428,7 @@ double conjgradient2(IN  int n,
 
     i++;
   }
-  //fclose(fd);
+  /* fclose(fd);   */
 
   freeMatrix(r);
   freeMatrix(d);
@@ -446,9 +445,9 @@ static mxArray * McomputeH(int nargout_,
                            const mxArray * E_z,
                            const mxArray * E_zz,
                            const mxArray * RR) {
-	double **Ucc, **Vcc, **E_zc, **E_zzc, **RRc, **KK1c, **KK2c, **kk3c, **P_tc, **R_tc, **zz_hat_tc, **Tmp1c, **Tmp2c, **vecH_hatc=NULL,
+    double **Ucc, **Vcc, **E_zc, **E_zzc, **RRc, **KK1c, **KK2c, **kk3c, **P_tc, **R_tc, **zz_hat_tc, **Tmp1c, **Tmp2c, **vecH_hatc=NULL,
          delta_err, epsilon;
-	int tc, Fc, Nc, junk1, junk2, kc, ic, jc, ii, jj, kk, ll, i_max, **sparsityMap;
+    int tc, Fc, Nc, junk1, junk2, kc, ic, jc, ii, jj, kk, ll, i_max, **sparsityMap;
 
   mxArray * vecH_hat = NULL;
 
@@ -467,12 +466,12 @@ static mxArray * McomputeH(int nargout_,
   IO_MLabCreateFile(DEBUGFILENAME);
 #endif
 
-	Ucc = getMxArray(Uc, &Fc, &Nc);
+    Ucc = getMxArray(Uc, &Fc, &Nc);
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "Ucc", Ucc[0], Fc, Nc);
 #endif
 
-	Vcc = getMxArray(Vc, &junk1, &junk2);
+    Vcc = getMxArray(Vc, &junk1, &junk2);
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "Vcc", Vcc[0], Fc, Nc);
 #endif
@@ -486,49 +485,41 @@ static mxArray * McomputeH(int nargout_,
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "E_zzc", E_zzc[0], kc*Fc, kc);
 #endif
-    
-    
+
+
   RRc = getMxArray(RR, &junk1, &junk2);
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "RRc", RRc[0], 2*Fc, 3);
 #endif
 
-	/*
-	 * KK2 = zeros(3*N*(k+1), 3*N*(k+1)); 
-	 */
-	KK2c = createMatrix(3*Nc*(kc+1), 3*Nc*(kc+1));
-    
-  /*
-   * KK3 = zeros(3*N, k+1);
-   */
-	kk3c = createMatrix(1,3*Nc*(kc+1));
+    /*     KK2 = zeros(3*N*(k+1), 3*N*(k+1));    */
+    KK2c = createMatrix(3*Nc*(kc+1), 3*Nc*(kc+1));
 
-	P_tc = createMatrix(1, 2*Nc);
+  /* KK3 = zeros(3*N, k+1);  */
+    kk3c = createMatrix(1,3*Nc*(kc+1));
+
+    P_tc = createMatrix(1, 2*Nc);
   zz_hat_tc = createMatrix(kc+1, kc+1);
   R_tc = createMatrix(2, 3);
   KK1c = createMatrix(2*Nc, 3*Nc);
   Tmp1c = createMatrix(3*Nc, 3*Nc);
   Tmp2c = createMatrix(1, 3*Nc);
-	for(tc=0; tc<Fc; tc++) 
-  {    
+    for(tc=0; tc<Fc; tc++)
+  {
 
-    /*
-     * P_t = [Uc(t,:); Vc(t,:)];
-     */
-    memset(P_tc[0], 0, sizeof(double)*2*Nc);     
+    /* P_t = [Uc(t,:); Vc(t,:)];  */
+    memset(P_tc[0], 0, sizeof(double)*2*Nc);
     for(jc=0; jc<Nc; jc++)
-	  {
+      {
       P_tc[0][2*jc] = Ucc[tc][jc];
-	    P_tc[0][2*jc+1] = Vcc[tc][jc];
-	  }
+        P_tc[0][2*jc+1] = Vcc[tc][jc];
+      }
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "P_tc", P_tc[0], 1, 2*Nc);
 #endif
 
-    /*
-     * zz_hat_t = [1 E_z(:,t)'; E_z(:,t) E_zz((t-1)*k+1:t*k,:)];
-     */
-    memset(zz_hat_tc[0], 0, sizeof(double)*(kc+1)*(kc+1));     
+    /* zz_hat_t = [1 E_z(:,t)'; E_z(:,t) E_zz((t-1)*k+1:t*k,:)];   */
+    memset(zz_hat_tc[0], 0, sizeof(double)*(kc+1)*(kc+1));
     zz_hat_tc[0][0] = 1;
     for(jc=1; jc<kc+1; jc++)
     {
@@ -538,29 +529,25 @@ static mxArray * McomputeH(int nargout_,
     for(ic=1; ic<kc+1; ic++)
     {
       for(jc=1; jc<kc+1; jc++)
-	    {
+        {
         zz_hat_tc[ic][jc] = E_zzc[tc*kc + (ic-1)][jc-1];
       }
-	  }
+      }
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "zz_hat_tc", zz_hat_tc[0], kc+1, kc+1);
 #endif
 
-    /*
-     * R_t = [RR(t, :); RR(t+F, :)];
-     */
+    /*    R_t = [RR(t, :); RR(t+F, :)];     */
     for(jc=0; jc<3; jc++)
-	  {
+      {
       R_tc[0][jc] = RRc[tc][jc];
       R_tc[1][jc] = RRc[tc+Fc][jc];
     }
 
-    /*
-     * KK1 = kron(speye(N), R_t);
-     */
-    memset(KK1c[0], 0, sizeof(double)*2*Nc*3*Nc);     
+    /*  KK1 = kron(speye(N), R_t);    */
+    memset(KK1c[0], 0, sizeof(double)*2*Nc*3*Nc);
     for(ic=0; ic<Nc; ic++)
-	  {
+      {
       KK1c[ic*2][ic*3] = R_tc[0][0];
       KK1c[ic*2][ic*3+1] = R_tc[0][1];
       KK1c[ic*2][ic*3+2] = R_tc[0][2];
@@ -605,16 +592,14 @@ static mxArray * McomputeH(int nargout_,
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "Tmp1c", Tmp1c[0], 3*Nc, 3*Nc);
 #endif
 
-    /*
-     * KK2 = KK2 + kron(zz_hat_t', KK1'*KK1);
-     */ 
+    /*  KK2 = KK2 + kron(zz_hat_t', KK1'*KK1);    */
 
-    /*for(ii=0; ii<(kc+1); ii++)  
-     for(kk=0; kk<(3*Nc); kk++)
-       for(jj=0; jj<(kc+1); jj++)
-         for(ll=0; ll<(3*Nc); ll++)
-           KK2c[(3*Nc)*ii+kk][(3*Nc)*jj+ll] += zz_hat_tc[ii][jj]*Tmp1c[kk][ll];*/
-    for(ii=0; ii<(kc+1); ii++)  
+    /* for(ii=0; ii<(kc+1); ii++)
+       for(kk=0; kk<(3*Nc); kk++)
+         for(jj=0; jj<(kc+1); jj++)
+          for(ll=0; ll<(3*Nc); ll++)
+           KK2c[(3*Nc)*ii+kk][(3*Nc)*jj+ll] += zz_hat_tc[ii][jj]*Tmp1c[kk][ll];  */
+    for(ii=0; ii<(kc+1); ii++)
      for(kk=0; kk<Nc; kk++)
        for(jj=0; jj<(kc+1); jj++)
        {
@@ -633,11 +618,9 @@ static mxArray * McomputeH(int nargout_,
 #if MYDEBUG
     IO_MLabWriteDoubleImg(DEBUGFILENAME, "KK2c", KK2c[0], 3*Nc*(kc+1), 3*Nc*(kc+1));
 #endif
-    
 
-    /*
-     * KK3 = KK3 + KK1'* P_t(:) * [1 E_z(:,t)'];
-     */
+
+    /*  KK3 = KK3 + KK1'* P_t(:) * [1 E_z(:,t)'];   */
 
     /* computes KK1'*P_t(:) */
     memset(Tmp2c[0], 0, sizeof(double)*3*Nc);
@@ -665,7 +648,7 @@ static mxArray * McomputeH(int nargout_,
 #endif
 
 
-    //printf("debug\n");
+    /*    printf("debug\n");   */
 
   }
 
@@ -689,11 +672,12 @@ static mxArray * McomputeH(int nargout_,
 
   epsilon = 0.000000001;
   i_max = 1000;
-  
-  //sparsityMap = createIntMatrix(3*Nc*(kc+1), 3*Nc*(kc+1)+1);
-  //getSparsityMap(3*Nc*(kc+1), 3*Nc*(kc+1), KK2c, sparsityMap);
 
-  //delta_err = conjgradient(3*Nc*(kc+1), KK2c, kk3c, i_max, epsilon, vecH_hatc);
+  /*  sparsityMap = createIntMatrix(3*Nc*(kc+1), 3*Nc*(kc+1)+1);
+      getSparsityMap(3*Nc*(kc+1), 3*Nc*(kc+1), KK2c, sparsityMap);
+
+      delta_err = conjgradient(3*Nc*(kc+1), KK2c, kk3c, i_max, epsilon, vecH_hatc);
+  */
   delta_err = conjgradient2(3*Nc*(kc+1), KK2c, kk3c, i_max, epsilon, kc, vecH_hatc);
 
   if (delta_err>0.01)
