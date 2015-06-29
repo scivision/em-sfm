@@ -5,7 +5,7 @@ em-sfm
 
 Examples
 ========
-See randomshapes_demo.m and shark_demo.m for more information.
+See ``randomshapes_demo.m`` and ``shark_demo.m`` for more information.
 
 Installation
 ============
