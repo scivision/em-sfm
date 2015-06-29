@@ -16,4 +16,5 @@ for better performance, open Matlab and type in the Matlab Command Window
  mex computeH.c
 
 if using Linux/Mac, you may need to type 
+
  mex computeH.c -l matlb
