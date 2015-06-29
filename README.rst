@@ -13,4 +13,6 @@ Installation
 ============
  git clone --depth 1 https://github.com/scienceopen/em-sfm.git
  
+from Matlab Command Windows, type:
+ 
  mex computeH.c
