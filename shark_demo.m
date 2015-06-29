@@ -21,7 +21,7 @@
 
 % loads the matrix P3_gt containing the ground thruth data: P3_gt([t t+T t+2*T],:) contains the 3D coordinates of the J points at time t
 % (T is the number of frames, J is the number of points)
-load('jaws.mat');
+load('data/jaws.mat');
 [T, J] = size(P3_gt); T = T/3;
 
 % 2D motion resulting from orthographic projection (Eq (1))
