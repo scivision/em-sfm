@@ -3,6 +3,8 @@ em-sfm
 ======
 `Lorenzo Torresani's <http://www.cs.dartmouth.edu/~lorenzo/software.html>`_ Structure from Motion Matlab code
 
+I have cleaned up the C-code so that is is GCC compilable.
+
 Examples
 ========
 See ``randomshapes_demo.m`` and ``shark_demo.m`` for more information.
@@ -14,7 +16,3 @@ Installation
 for better performance, open Matlab and type in the Matlab Command Window
 
  mex computeH.c
-
-if using Linux/Mac, you may need to type 
-
- mex computeH.c -l matlb
