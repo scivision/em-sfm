@@ -12,7 +12,7 @@ Examples
 ========
 ``randomshapes_demo.m`` 
 
-``shark_demo.m``
+``shark_demo.m`` (plot below is from GNU Octave 4.0)
 
 .. image:: data/shark.png
 
