@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include "mat.h"
 #include "mex.h"
-
 
 #define IN
 #define OUT
-#define MYDEBUG 0
 
+#define MYDEBUG 0
+#if MYDEBUG
+#include "mat.h"
+#endif
 
 static mxArray * McomputeH(int nargout_,
                            const mxArray * Uc,
@@ -145,7 +146,7 @@ void freeIntMatrix(IN  int **matrix)
   free(matrix);
 }
 
-
+#if MYDEBUG
 void IO_MLabCreateFile(char *fileName)
 {
     MATFile *fp;
@@ -182,6 +183,7 @@ void IO_MLabWriteDoubleImg(char *fileName, char *nameImg, double *img, int rows,
 
     mxDestroyArray(mxArr);
 }
+#endif
 
 
 void kron(IN int rowsA,

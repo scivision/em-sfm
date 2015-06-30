@@ -1,4 +1,4 @@
-function [E_z, E_zz, y, M, xt_n, Pt_n, Ptt1_n, xt_t1, Pt_t1] = sfm_lds_Estep(P, S_bar, V, RR, Tr, phi, mu0, sigma0, Q, sigma_sq)
+function [E_z, E_zz, y, M, xt_n, Pt_n, Ptt1_n, xt_t1, Pt_t1] = estep_lds_compute_Z_distr(P, S_bar, V, RR, Tr, phi, mu0, sigma0, Q, sigma_sq)
 %[E_z, E_zz, y, M, xt_n, Pt_n, Ptt1_n, xt_t1, Pt_t1] = sfm_lds_Estep(P, S_bar, V, RR, Tr, phi, mu0, sigma0, Q, sigma_sq)
 
 K = size(V,1)/3;

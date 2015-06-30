@@ -1,4 +1,6 @@
-function vis_reconstruction(P3_gt, P3_rec)
+function vis_reconstruction(P3_gt, P3_rec, writeimg)
+
+isoctave = exist('OCTAVE_VERSION', 'builtin')==5;
 
 [T, J] = size(P3_gt); T = T/3;
 
@@ -49,11 +51,12 @@ for t=1:T
    end
    drawnow;
    
-   I = getframe;
    
-   if 0,
+   
+   if writeimg && ~isoctave %does not work in Octave 4 due to getframe() not yet implemented
+      I = getframe;
       str = sprintf('frame%04d', t);
-      imwrite(I.cdata, [str '.jpg'], 'Quality', 100);      
+      imwrite(I.cdata, [str '.png'])      
    end
 end
 

@@ -1,5 +1,4 @@
-function sigma_sq = mstep_update_noisevar_md(P, S_bar, V, E_z, E_zz, RO, Tr)
-%sigma_sq = mstep_update_noisevar(P, S_bar, V, E_z, E_zz, RO, Tr)
+function sigma_sq = mstep_update_noisevar(P, S_bar, V, E_z, E_zz, RO, Tr)
 
 % Updates noise variance (Eq 22)
 

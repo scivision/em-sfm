@@ -1,4 +1,4 @@
-function [phiIn, mu0In, sigma0In, QIn] = iit_lds(P, S_bar, V, RR, Tr, sigma_sq)
+function [phiIn, mu0In, sigma0In, QIn] = init_lds(P, S_bar, V, RR, Tr, sigma_sq)
 
 K = size(V,1)/3;
 [T, J] = size(P);
