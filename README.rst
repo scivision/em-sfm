@@ -1,6 +1,7 @@
 ======
 em-sfm
 ======
+
 `Lorenzo Torresani's <http://www.cs.dartmouth.edu/~lorenzo/software.html>`_ Structure from Motion Matlab code
 
 I have cleaned up the C-code so that is is GCC compilable for Matlab and GNU Octave.
@@ -9,7 +10,11 @@ Tested in Matlab R2015a and Octave 4.0 on Linux
 
 Examples
 ========
-See ``randomshapes_demo.m`` and ``shark_demo.m`` for more information.
+``randomshapes_demo.m`` 
+
+``shark_demo.m``
+
+.. image:: data/shark.png
 
 Installation
 ============
