@@ -1,4 +1,4 @@
-function input_handler(fn,writeimg)
+function input_handler(fn,writeimg,use_lds,max_em_iter)
 load(fn,'P3_gt')
 [T, J] = size(P3_gt); T = T/3; %#ok<NODEF>
 
@@ -6,8 +6,6 @@ load(fn,'P3_gt')
 p2_obs = P3_gt(1:2*T, :);
 
 % runs the non-rigid structure from motion algorithm
-use_lds = true; %true: model deformations using a linear dynamical system
-max_em_iter = 20;
 tol = 0.0001;
 K = 2; % number of deformation shapes
 Zcoords_gt = P3_gt(2*T+1:3*T,:) - mean(P3_gt(2*T+1:3*T,:),2)*ones(1,J);

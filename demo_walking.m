@@ -2,7 +2,7 @@
 %
 % Copyright (c) by Lorenzo Torresani, Stanford University
 % 
-% A demo of Non-Rigid Structure From Motion on artificial shark sequence
+% A demo of Non-Rigid Structure From Motion on artificial walking sequence
 %
 %
 % The 3D reconstruction technique is based on the following paper:
@@ -21,10 +21,14 @@
 
 % loads the matrix P3_gt containing the ground thruth data: P3_gt([t t+T t+2*T],:) contains the 3D coordinates of the J points at time t
 % (T is the number of frames, J is the number of points)
-function shark_demo()
+function demo_walking()
+disp('the reconstruction may be flipped upside down')
 writeimg=false;
-fn = 'data/jaws.mat';
-tic
-input_handler(fn,writeimg)
+fn = 'data/walking.mat';
+
+use_lds = true; %true: model deformations using a linear dynamical system
+max_em_iter = 60;
+
+input_handler(fn,writeimg,use_lds,max_em_iter)
 
 end
