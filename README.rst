@@ -8,21 +8,25 @@ I have cleaned up the C-code so that is is GCC compilable for Matlab and GNU Oct
 
 Tested in Matlab R2015a and Octave 4.0 on Linux
 
+.. contents::
+
 Examples
 ========
-``randomshapes_demo.m`` 
+::
 
-``shark_demo.m`` (plot below is from GNU Octave 4.0)
+    randomshapes_demo.m
+
+    shark_demo.m 
+    
+(plot is from GNU Octave 4.0)
 
 .. image:: data/shark.png
 
 Installation
 ============
- git clone --depth 1 https://github.com/scienceopen/em-sfm.git
+from Matlab/Octave Command Window, type::
  
-from Matlab/Octave Command Window, type:
- 
- mex computeH.c
+  mex computeH.c
 
 Reference
 =========
